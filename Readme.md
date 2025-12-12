@@ -139,8 +139,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Twitter: [@yourhandle](https://twitter.com/yourhandle)
+- GitHub: [@Kaileshwar](https://github.com/Kaileshwar16)
+
 
 ## 🙏 Acknowledgments
 
@@ -148,10 +148,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with modern web technologies
 - Icons generated with custom HTML5 Canvas
 
-## 📊 Stats
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/quicknav?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/quicknav?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/yourusername/quicknav)
 
 ---
