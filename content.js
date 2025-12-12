@@ -7,8 +7,7 @@ style.textContent = `
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(0, 0, 0, 0.75);
   z-index: 999999;
   display: flex;
   align-items: flex-start;
@@ -23,17 +22,20 @@ style.textContent = `
 }
 
 .search-container {
-  background: rgba(30, 30, 35, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(20, 20, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
   width: 90%;
   max-width: 600px;
   overflow: hidden;
   animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
 }
 
 @keyframes slideIn {
@@ -55,15 +57,17 @@ style.textContent = `
   font-size: 17px;
   font-weight: 400;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
   color: #ffffff;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
 }
 
 .search-input:focus {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.25);
 }
 
 .search-input::placeholder {
@@ -73,6 +77,7 @@ style.textContent = `
 .search-results {
   max-height: 420px;
   overflow-y: auto;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .search-hint {
@@ -97,8 +102,9 @@ style.textContent = `
 
 .result-item:hover,
 .result-item.selected {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   border-left-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
 }
 
 .result-icon {
