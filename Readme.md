@@ -1,4 +1,4 @@
-# QuickNav - Lightning-Fast Page Navigation ⚡
+# ShiftSearch - Lightning-Fast Page Navigation ⚡
 
 > Navigate any webpage with keyboard shortcuts. Search and jump to links, buttons, and inputs instantly without touching your mouse.
 
