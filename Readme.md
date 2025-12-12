@@ -93,28 +93,7 @@ All styles are in the `CSS` constant at the top of `content.js`. You can modify:
 - Animations
 - And more!
 
-## 🛠️ Development
 
-### Project Structure
-
-```
-quicknav/
-├── manifest.json       # Extension configuration
-├── content.js         # Main extension logic
-├── icon16.png         # 16x16 toolbar icon
-├── icon48.png         # 48x48 management icon
-├── icon128.png        # 128x128 store icon
-└── README.md          # This file
-```
-
-### Building Icons
-
-Use the included `icon-generator.html` to create custom icons:
-
-1. Open `icon-generator.html` in your browser
-2. Upload your image (512x512px recommended)
-3. Download all three icon sizes
-4. Replace the icon files in the extension folder
 
 ## 🐛 Troubleshooting
 
