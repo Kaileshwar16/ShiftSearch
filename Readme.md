@@ -31,8 +31,8 @@ Perfect for:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/quicknav.git
-   cd quicknav
+   git clone https://github.com/Kaileshwar16/ShiftSearch.git
+   cd ShiftSearch
    ```
 
 2. **Load in Chrome**
