@@ -42,9 +42,46 @@
       to { transform: translateY(0) scale(1); opacity: 1; }
     }
     
+    .search-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px 12px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .search-logo {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .search-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: -0.02em;
+    }
+    
+    .search-shortcut {
+      margin-left: auto;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+    
     .search-input {
       width: 100%;
-      padding: 22px 24px;
+      padding: 20px 24px;
       border: none;
       outline: none;
       font-size: 17px;
@@ -65,7 +102,7 @@
     .search-input::placeholder { color: rgba(255, 255, 255, 0.5); }
     
     .search-results {
-      max-height: 420px;
+      max-height: 380px;
       overflow-y: auto;
       background: rgba(255, 255, 255, 0.03);
     }
@@ -104,6 +141,29 @@
       font-size: 15px;
     }
     
+    .search-footer {
+      padding: 12px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .footer-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .key-hint {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+    
     .search-results::-webkit-scrollbar { width: 6px; }
     .search-results::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.2);
@@ -122,24 +182,57 @@
   
   function findElements() {
     const els = [];
+    
+    // Find links
     document.querySelectorAll('a[href]').forEach(link => {
       const text = link.innerText.trim();
-      if (text && link.href && !link.href.startsWith('javascript:')) {
-        els.push({ element: link, text: text, type: 'link', icon: '🔗' });
+      const ariaLabel = link.getAttribute('aria-label');
+      const title = link.title;
+      const displayText = text || ariaLabel || title;
+      
+      if (displayText && link.href && !link.href.startsWith('javascript:')) {
+        els.push({ element: link, text: displayText, type: 'link', icon: '🔗' });
       }
     });
-    document.querySelectorAll('button').forEach(btn => {
-      const text = btn.innerText.trim() || btn.getAttribute('aria-label') || btn.title;
-      if (text) {
-        els.push({ element: btn, text: text, type: 'button', icon: '⚡' });
+    
+    // Find buttons - be more flexible and include all clickable elements
+    document.querySelectorAll('button, [role="button"], yt-icon-button, tp-yt-paper-icon-button').forEach(btn => {
+      const text = btn.innerText.trim();
+      const ariaLabel = btn.getAttribute('aria-label');
+      const title = btn.title;
+      const dataTooltip = btn.getAttribute('data-tooltip-text');
+      const id = btn.id;
+      
+      // Try multiple sources for button text
+      let displayText = text || ariaLabel || title || dataTooltip;
+      
+      // For YouTube-specific elements, check nested labels
+      if (!displayText) {
+        const labelEl = btn.querySelector('[aria-label]');
+        if (labelEl) displayText = labelEl.getAttribute('aria-label');
+      }
+      
+      // Special handling for common buttons
+      if (!displayText && id) {
+        if (id.includes('home')) displayText = 'Home';
+        else if (id.includes('back')) displayText = 'Back';
+        else if (id.includes('forward')) displayText = 'Forward';
+      }
+      
+      // Skip buttons without any identifiable text
+      if (displayText && displayText.length > 0) {
+        els.push({ element: btn, text: displayText, type: 'button', icon: '⚡' });
       }
     });
+    
+    // Find inputs
     document.querySelectorAll('input, textarea').forEach(inp => {
-      const text = inp.placeholder || inp.name || inp.id || inp.getAttribute('aria-label');
+      const text = inp.placeholder || inp.getAttribute('aria-label') || inp.name || inp.id;
       if (text) {
         els.push({ element: inp, text: text, type: 'input', icon: '✏️' });
       }
     });
+    
     return els;
   }
   
