@@ -7,14 +7,14 @@ style.textContent = `
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
   z-index: 999999;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 15vh;
-  animation: fadeIn 0.15s ease;
+  padding-top: 20vh;
+  animation: fadeIn 0.2s ease;
 }
 
 @keyframes fadeIn {
@@ -23,44 +23,62 @@ style.textContent = `
 }
 
 .search-container {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  background: rgba(30, 30, 35, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   width: 90%;
   max-width: 600px;
   overflow: hidden;
-  animation: slideDown 0.2s ease;
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(40px);
 }
 
-@keyframes slideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes slideIn {
+  from { 
+    transform: translateY(-20px) scale(0.96); 
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0) scale(1); 
+    opacity: 1;
+  }
 }
 
 .search-input {
   width: 100%;
-  padding: 20px 24px;
+  padding: 22px 24px;
   border: none;
   outline: none;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 400;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  border-bottom: 1px solid #e5e7eb;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
+  color: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 
 .search-input::placeholder {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .search-results {
-  max-height: 400px;
+  max-height: 420px;
   overflow-y: auto;
 }
 
 .search-hint {
-  padding: 40px 24px;
+  padding: 48px 24px;
   text-align: center;
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.4);
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
@@ -68,23 +86,25 @@ style.textContent = `
 .result-item {
   display: flex;
   align-items: center;
-  padding: 14px 24px;
+  padding: 16px 24px;
   cursor: pointer;
-  transition: background 0.1s ease;
+  transition: all 0.15s ease;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  gap: 12px;
-  border-left: 3px solid transparent;
+  gap: 14px;
+  border-left: 2px solid transparent;
+  background: transparent;
 }
 
 .result-item:hover,
 .result-item.selected {
-  background: #f3f4f6;
-  border-left-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.06);
+  border-left-color: rgba(255, 255, 255, 0.6);
 }
 
 .result-icon {
   font-size: 20px;
   flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .result-text {
@@ -94,31 +114,24 @@ style.textContent = `
 
 .result-title {
   font-weight: 500;
-  color: #1f2937;
+  color: #ffffff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-bottom: 2px;
-}
-
-.result-subtitle {
-  font-size: 12px;
-  color: #6b7280;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 15px;
+  letter-spacing: -0.01em;
 }
 
 .no-results {
-  padding: 40px 24px;
+  padding: 48px 24px;
   text-align: center;
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.4);
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .search-results::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .search-results::-webkit-scrollbar-track {
@@ -126,16 +139,16 @@ style.textContent = `
 }
 
 .search-results::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 
 .search-results::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .highlight-match {
-  background: #fef3c7;
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
 }
 `;
@@ -161,7 +174,6 @@ function findClickableElements() {
       elements.push({
         element: link,
         text: text,
-        subtitle: href,
         type: 'link',
         icon: '🔗'
       });
@@ -175,7 +187,6 @@ function findClickableElements() {
       elements.push({
         element: button,
         text: text,
-        subtitle: 'Button',
         type: 'button',
         icon: '⚡'
       });
@@ -189,7 +200,6 @@ function findClickableElements() {
       elements.push({
         element: input,
         text: text,
-        subtitle: 'Input field',
         type: 'input',
         icon: '✏️'
       });
@@ -210,11 +220,11 @@ function createSearchOverlay() {
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'search-input';
-  input.placeholder = 'Search links, buttons, and content on this page...';
+  input.placeholder = 'Search on this page...';
   
   const results = document.createElement('div');
   results.className = 'search-results';
-  results.innerHTML = '<div class="search-hint">Type to search clickable elements on this page</div>';
+  results.innerHTML = '<div class="search-hint">Type to search</div>';
   
   container.appendChild(input);
   container.appendChild(results);
@@ -248,7 +258,7 @@ function handleSearchInput(e) {
   const query = e.target.value.trim().toLowerCase();
   
   if (!query) {
-    resultsContainer.innerHTML = '<div class="search-hint">Type to search clickable elements on this page</div>';
+    resultsContainer.innerHTML = '<div class="search-hint">Type to search</div>';
     filteredResults = [];
     return;
   }
@@ -266,7 +276,7 @@ function handleSearchInput(e) {
   // Display results
   resultsContainer.innerHTML = '';
   
-  filteredResults.slice(0, 10).forEach((item, index) => {
+  filteredResults.slice(0, 8).forEach((item, index) => {
     const resultItem = document.createElement('div');
     resultItem.className = 'result-item';
     resultItem.dataset.index = index;
@@ -277,7 +287,6 @@ function handleSearchInput(e) {
       <span class="result-icon">${item.icon}</span>
       <div class="result-text">
         <div class="result-title">${highlightedText}</div>
-        <div class="result-subtitle">${item.subtitle}</div>
       </div>
     `;
     
@@ -315,7 +324,7 @@ function handleKeyNavigation(e) {
       selected.classList.remove('selected');
       const nextIndex = (currentIndex + 1) % results.length;
       results[nextIndex].classList.add('selected');
-      results[nextIndex].scrollIntoView({ block: 'nearest' });
+      results[nextIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   } else if (e.key === 'ArrowUp') {
     e.preventDefault();
@@ -326,7 +335,7 @@ function handleKeyNavigation(e) {
       selected.classList.remove('selected');
       const prevIndex = (currentIndex - 1 + results.length) % results.length;
       results[prevIndex].classList.add('selected');
-      results[prevIndex].scrollIntoView({ block: 'nearest' });
+      results[prevIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   } else if (e.key === 'Escape') {
     closeSearchOverlay();
@@ -338,13 +347,10 @@ function navigateToElement(item) {
   closeSearchOverlay();
   
   if (item.type === 'link') {
-    // Click the link
     item.element.click();
   } else if (item.type === 'button') {
-    // Click the button
     item.element.click();
   } else if (item.type === 'input') {
-    // Focus the input
     item.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => item.element.focus(), 300);
   }
@@ -353,14 +359,27 @@ function navigateToElement(item) {
 // Close overlay
 function closeSearchOverlay() {
   if (searchOverlay) {
-    searchOverlay.remove();
-    searchOverlay = null;
-    searchInput = null;
-    resultsContainer = null;
-    searchableElements = [];
-    filteredResults = [];
+    searchOverlay.style.animation = 'fadeOut 0.15s ease';
+    setTimeout(() => {
+      searchOverlay.remove();
+      searchOverlay = null;
+      searchInput = null;
+      resultsContainer = null;
+      searchableElements = [];
+      filteredResults = [];
+    }, 150);
   }
 }
+
+// Add fadeOut animation
+const fadeOutStyle = document.createElement('style');
+fadeOutStyle.textContent = `
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+`;
+document.head.appendChild(fadeOutStyle);
 
 // Keyboard event listeners
 document.addEventListener('keydown', (e) => {
