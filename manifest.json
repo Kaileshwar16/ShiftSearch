@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Quick Search Navigator",
+  "version": "1.0",
+  "description": "Press Shift+: to quickly search and navigate",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
