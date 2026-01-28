@@ -141,6 +141,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Your Name**
 - GitHub: [@Kaileshwar](https://github.com/Kaileshwar16)
 
+Extension
+
+https://chromewebstore.google.com/detail/jpeaagghdhdipbjknkcldolafhgnlgnc?utm_source=item-share-cb
 
 ## 🙏 Acknowledgments
 
